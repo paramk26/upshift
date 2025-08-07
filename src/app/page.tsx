@@ -1,103 +1,123 @@
-import Image from "next/image";
+'use client'
+
+import Image from 'next/image'
+import Link from 'next/link'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { Button } from '@/components/ui/button'
+import { motion } from 'framer-motion'
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="relative min-h-screen flex flex-col font-sans bg-black text-white overflow-hidden">
+      {/* Animated Background */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        className="absolute inset-0 z-0 bg-gradient-to-br from-[#14CDC8]/20 via-black to-[#14CDC8]/10 blur-2xl animate-pulse"
+      />
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+      {/* Header */}
+      <header className="z-10 flex justify-between items-center p-6 relative">
+        {/* Logo only */}
+        <Link href="/" className="flex items-center">
+          <Image src="/logo.png" alt="Upshift Racing Logo" width={100} height={100} />
+        </Link>
+
+        {/* Navigation */}
+        <nav className="relative flex items-center gap-6 text-sm sm:text-base font-medium">
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                className="text-white hover:text-[#14CDC8] hover:bg-transparent font-normal text-base"
+              >
+                Products
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start" className="w-48 bg-white text-black">
+              <DropdownMenuItem asChild>
+                <Link href="/products/ascent">Upshift Ascent</Link>
+              </DropdownMenuItem>
+              <DropdownMenuItem asChild>
+                <Link href="/products/apex">Upshift Apex</Link>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
+
+          <Link href="/tracks" className="hover:text-[#14CDC8] transition font-normal text-base">
+            Track Experience
+          </Link>
+          <Link href="/about" className="hover:text-[#14CDC8] transition font-normal text-base">
+            About Us
+          </Link>
+        </nav>
+      </header>
+
+      {/* Hero Section */}
+      <main className="z-10 flex flex-col items-center text-center px-6 py-20 gap-6 max-w-5xl mx-auto relative">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1 }}
+        >
+          <Image src="/logo.png" alt="Upshift Logo" width={180} height={180} />
+        </motion.div>
+
+        <motion.h1
+          className="text-4xl sm:text-5xl font-bold text-white tracking-tight"
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.3, duration: 1 }}
+        >
+          Redefining Racing in India
+        </motion.h1>
+
+        <motion.p
+          className="text-lg text-gray-300 max-w-2xl"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.6, duration: 1 }}
+        >
+          High-performance Formula-style race cars. Iconic karting tracks. A lifestyle built on speed, style, and precision.
+        </motion.p>
+
+        <motion.div
+          className="flex gap-4 mt-8 flex-wrap justify-center"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: 0.9, duration: 1 }}
+        >
+          <Link href="/products/ascent">
+            <Button className="bg-[#14CDC8] text-black hover:bg-[#0ebeb3]">
+              Explore Cars
+            </Button>
+          </Link>
+          <Link href="/tracks">
+            <Button
+              variant="outline"
+              className="border-[#14CDC8] text-[#14CDC8] hover:bg-[#0b2e2c]"
+            >
+              Book a Track Day
+            </Button>
+          </Link>
+        </motion.div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+
+      {/* Footer */}
+      <footer className="bg-[#0e0e0e] border-t border-gray-800 py-2 px-6 text-xs text-gray-400 z-10 relative">
+        <div className="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-6 text-center sm:text-left">
+          <div className="flex flex-wrap gap-4 justify-center sm:justify-start">
+            <a href="tel:+919876543210" className="hover:text-[#14CDC8]">📞 +91 98765 43210</a>
+            <a href="mailto:contact@upshiftracing.com" className="hover:text-[#14CDC8]">📧 contact@upshiftracing.com</a>
+            <a href="https://instagram.com/upshiftracing" target="_blank" rel="noopener" className="hover:text-[#14CDC8]">📷 @upshiftracing</a>
+          </div>
+          <div className="flex flex-wrap gap-4 justify-center sm:justify-end">
+            <Link href="/about" className="hover:text-[#14CDC8]">About Us</Link>
+            <Link href="/contact" className="hover:text-[#14CDC8]">Contact</Link>
+            <Link href="/privacy" className="hover:text-[#14CDC8]">Privacy</Link>
+          </div>
+        </div>
       </footer>
     </div>
-  );
+  )
 }
