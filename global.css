@@ -1,0 +1,21 @@
+/* global.css */
+@keyframes windFlow {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.wind-lines {
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(20, 205, 200, 0.4) 0px,
+    rgba(255, 255, 255, 0.2) 2px,
+    transparent 4px,
+    transparent 8px
+  );
+  animation: windFlow 1.5s linear infinite;
+  background-size: 200% 100%;
+}
